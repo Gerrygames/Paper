@@ -27496,7 +27496,7 @@ index d1f235ebd835f58cf0c703c3a64d29825d98e183..080091efc19bc768bb9a660f366c42e8
      }
  
 diff --git a/net/minecraft/server/level/ServerPlayer.java b/net/minecraft/server/level/ServerPlayer.java
-index f054ea710108e5017bc48fdda5f180a04f5b55e2..f44600604a7bf68c990cd74a1ac2d7900ff6e88e 100644
+index 0bb610f12e3ddda649ecb5ad62ffdc7bfd243223..19428343b37c9b739b3d28984d52e257f85f253f 100644
 --- a/net/minecraft/server/level/ServerPlayer.java
 +++ b/net/minecraft/server/level/ServerPlayer.java
 @@ -178,7 +178,7 @@ import net.minecraft.world.scores.Team;
@@ -27508,7 +27508,7 @@ index f054ea710108e5017bc48fdda5f180a04f5b55e2..f44600604a7bf68c990cd74a1ac2d790
      private static final Logger LOGGER = LogUtils.getLogger();
      private static final int NEUTRAL_MOB_DEATH_NOTIFICATION_RADII_XZ = 32;
      private static final int NEUTRAL_MOB_DEATH_NOTIFICATION_RADII_Y = 10;
-@@ -388,6 +388,36 @@ public class ServerPlayer extends Player {
+@@ -395,6 +395,36 @@ public class ServerPlayer extends Player {
      public @Nullable String clientBrandName = null; // Paper - Brand support
      public org.bukkit.event.player.PlayerQuitEvent.QuitReason quitReason = null; // Paper - Add API for quit reason; there are a lot of changes to do if we change all methods leading to the event
  
@@ -29502,7 +29502,7 @@ index 300f3ed58109219d97846082941b860585f66fed..892a7c1eb1b321ca6d5ca709142e7fea
  
      // Paper start - Affects Spawning API
 diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
-index 771d6ed6a7c889c09efd4ff6e20298c851eaa79f..a768f041fd16d253ec4ab5eb75288b1771d5cb00 100644
+index b94a15c115d20e843e43e10acc0935d11113d195..2f9d8260d24a33b32fe5c042df1cce6c37ca335b 100644
 --- a/net/minecraft/world/level/Level.java
 +++ b/net/minecraft/world/level/Level.java
 @@ -79,6 +79,7 @@ import net.minecraft.world.level.storage.LevelData;
@@ -30185,7 +30185,7 @@ index 771d6ed6a7c889c09efd4ff6e20298c851eaa79f..a768f041fd16d253ec4ab5eb75288b17
      }
  
      // Paper start - Cancel hit for vanished players
-@@ -567,7 +1201,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -566,7 +1200,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
                  this.setBlocksDirty(blockposition, iblockdata1, iblockdata2);
              }
  
@@ -30194,7 +30194,7 @@ index 771d6ed6a7c889c09efd4ff6e20298c851eaa79f..a768f041fd16d253ec4ab5eb75288b17
                  this.sendBlockUpdated(blockposition, iblockdata1, iblockdata, i);
              }
  
-@@ -835,6 +1469,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -834,6 +1468,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
          // Spigot start
          boolean runsNormally = this.tickRateManager().runsNormally();
  
@@ -30202,7 +30202,7 @@ index 771d6ed6a7c889c09efd4ff6e20298c851eaa79f..a768f041fd16d253ec4ab5eb75288b17
          var toRemove = new it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet<TickingBlockEntity>(); // Paper - Fix MC-117075; use removeAll
          toRemove.add(null); // Paper - Fix MC-117075
          for (tileTickPosition = 0; tileTickPosition < this.blockEntityTickers.size(); tileTickPosition++) { // Paper - Disable tick limiters
-@@ -845,6 +1480,11 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -844,6 +1479,11 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
                  toRemove.add(tickingBlockEntity); // Paper - Fix MC-117075; use removeAll
              } else if (runsNormally && this.shouldTickBlocksAt(tickingBlockEntity.getPos())) {
                  tickingBlockEntity.tick();
@@ -30214,7 +30214,7 @@ index 771d6ed6a7c889c09efd4ff6e20298c851eaa79f..a768f041fd16d253ec4ab5eb75288b17
              }
          }
          this.blockEntityTickers.removeAll(toRemove); // Paper - Fix MC-117075
-@@ -865,6 +1505,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -864,6 +1504,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
              entity.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.DISCARD);
              // Paper end - Prevent block entity and entity crashes
          }
@@ -30222,7 +30222,7 @@ index 771d6ed6a7c889c09efd4ff6e20298c851eaa79f..a768f041fd16d253ec4ab5eb75288b17
      }
  
      // Paper start - Option to prevent armor stands from doing entity lookups
-@@ -872,7 +1513,14 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -871,7 +1512,14 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
      public boolean noCollision(@Nullable Entity entity, AABB box) {
          if (entity instanceof net.minecraft.world.entity.decoration.ArmorStand && !entity.level().paperConfig().entities.armorStands.doCollisionEntityLookups)
              return false;
@@ -30238,7 +30238,7 @@ index 771d6ed6a7c889c09efd4ff6e20298c851eaa79f..a768f041fd16d253ec4ab5eb75288b17
      }
      // Paper end - Option to prevent armor stands from doing entity lookups
  
-@@ -1010,7 +1658,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -1009,7 +1657,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
          if (this.isOutsideBuildHeight(pos)) {
              return null;
          } else {
@@ -30247,7 +30247,7 @@ index 771d6ed6a7c889c09efd4ff6e20298c851eaa79f..a768f041fd16d253ec4ab5eb75288b17
                  ? null
                  : this.getChunkAt(pos).getBlockEntity(pos, LevelChunk.EntityCreationType.IMMEDIATE);
          }
-@@ -1103,22 +1751,16 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -1102,22 +1750,16 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
      public List<Entity> getEntities(@Nullable Entity entity, AABB boundingBox, Predicate<? super Entity> predicate) {
          Profiler.get().incrementCounter("getEntities");
          List<Entity> list = Lists.newArrayList();
@@ -30278,7 +30278,7 @@ index 771d6ed6a7c889c09efd4ff6e20298c851eaa79f..a768f041fd16d253ec4ab5eb75288b17
      }
  
      @Override
-@@ -1132,33 +1774,94 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -1131,33 +1773,94 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
          this.getEntities(entityTypeTest, bounds, predicate, output, Integer.MAX_VALUE);
      }
  
